@@ -1,7 +1,6 @@
 package com.manager.item_manager.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Map;
 
 import com.manager.item_manager.model.Item;
