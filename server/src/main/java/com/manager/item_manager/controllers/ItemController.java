@@ -26,9 +26,11 @@ public class ItemController {
     this.itemRepository = itemRepository;
   }
 
+  //get methods
+
   @GetMapping("/")
   public String index() {
-    return "Server up and running";
+    return "Server is up and running";
   }
 
   @GetMapping("/items")
@@ -41,35 +43,62 @@ public class ItemController {
     return itemRepository.findById(id).isPresent() ? itemRepository.findById(id).get() : null;
   }
 
+  //Post requests
+
+  @PostMapping("/item/create")
+  public void createItem(@RequestBody Map<String, Object> payload) {
+    String name = (String) payload.get("name");
+    int count = payload.get("count") == null ? -1 : (int) payload.get("count");
+    String description = (String) payload.get("description");
+    String category = (String) payload.get("category");
+    double price = payload.get("price") == null ? -1 : (double) payload.get("price");
+    String image = (String) payload.get("image");
+    //if one of the fields is null, throw an exception
+    if (name == null || count < 0 || description == null || category == null || price < 0 || image == null)
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to create a new item");
+    Item item = new Item(name, count, description, category, price, image);
+    itemRepository.save(item);
+  }
+
+  //modify methods
+
   @PostMapping("/item/modify/count")
   public void modifyCount(@RequestBody Map<String, Object> payload) {
-    try {
-      String id = (String) payload.get("id");
-      int count = (int) payload.get("count");
+    Object maybe_id = payload.get("id");
+    Object maybe_count = payload.get("count");
 
-      if (count > 0) {
-        Item modify = itemRepository.findById(id).get();
-        modify.setCount(count);
-        itemRepository.save(modify);
-      } else
-        itemRepository.deleteById(id);
-    } catch (Exception e) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide the object Id and the correct count");
-    }
+    if (maybe_id == null || maybe_count == null)
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
+
+    String id = (String) maybe_id;
+    Integer count = (Integer) maybe_count;
+
+    Item modify = itemRepository.findById(id).get();
+    if (modify == null)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
+    if (count > 0) {
+      modify.setCount(count);
+      itemRepository.save(modify);
+    } else
+      itemRepository.deleteById(id);
   }
 
   @PostMapping("/item/modify/description")
   public void modifyDescription(@RequestBody Map<String, Object> payload) {
-    try {
-      String id = (String) payload.get("id");
-      String description = (String) payload.get("description");
+    Object maybe_id = payload.get("id");
+    Object maybe_description = payload.get("description");
 
-      Item modify = itemRepository.findById(id).get();
-      modify.setDescription(description);
-      itemRepository.save(modify);
-    } catch (Exception e) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide the object Id and the correct count");
-    }
+    if (maybe_id == null || maybe_description == null)
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
+
+    String id = (String) maybe_id;
+    String description = (String) maybe_description;
+
+    Item modify = itemRepository.findById(id).get();
+    if (modify == null)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
+    modify.setDescription(description);
+    itemRepository.save(modify);
   }
 
   @PostMapping("/item/modify/price")
@@ -83,29 +112,13 @@ public class ItemController {
     String id = (String) maybe_id;
     double price = (double) maybe_price;
 
+    Item modify = itemRepository.findById(id).get();
+    if (modify == null)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
     if (price > 0) {
-      Item modify = itemRepository.findById(id).get();
-      if (modify == null)
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
       modify.setPrice(price);
       itemRepository.save(modify);
     } else
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot set a negative/null price");
-  }
-
-  @PostMapping("/item/create")
-  public void createItem(@RequestBody Map<String, Object> payload) {
-    try {
-      String name = (String) payload.get("name");
-      int count = (int) payload.get("count");
-      String description = (String) payload.get("description");
-      String category = (String) payload.get("category");
-      double price = (double) payload.get("price");
-      String image = (String) payload.get("image");
-      Item item = new Item(name, count, description, category, price, image);
-      itemRepository.save(item);
-    } catch (Exception e) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to create a new item");
-    }
   }
 }
