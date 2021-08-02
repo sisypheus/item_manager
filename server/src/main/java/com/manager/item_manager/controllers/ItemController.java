@@ -44,6 +44,15 @@ public class ItemController {
 
   //Post requests
 
+  @PostMapping("/item/delete/{id}")
+  public void deleteItem(@PathVariable String id) {
+    try {
+      itemRepository.deleteById(id);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item id doesn't exist.");
+    }
+  }
+
   @PostMapping("/item/create")
   public void createItem(@RequestBody Map<String, Object> payload) {
     String name = (String) payload.get("name");
