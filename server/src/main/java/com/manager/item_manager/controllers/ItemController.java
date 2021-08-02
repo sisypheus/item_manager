@@ -55,7 +55,7 @@ public class ItemController {
   }
 
   @PostMapping("/item/create")
-  public void createItem(@RequestBody Map<String, Object> payload) {
+  public Item createItem(@RequestBody Map<String, Object> payload) {
     String name = (String) payload.get("name");
     int count = payload.get("count") == null ? -1 : (int) payload.get("count");
     String description = (String) payload.get("description");
@@ -67,12 +67,13 @@ public class ItemController {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to create a new item");
     Item item = new Item(name, count, description, category, price, image);
     itemRepository.save(item);
+    return item;
   }
 
   //modify methods
 
   @PostMapping("/item/modify/count")
-  public void modifyCount(@RequestBody Map<String, Object> payload) {
+  public Item modifyCount(@RequestBody Map<String, Object> payload) {
     Object maybe_id = payload.get("id");
     Object maybe_count = payload.get("count");
 
@@ -88,8 +89,11 @@ public class ItemController {
     if (count > 0) {
       modify.setCount(count);
       itemRepository.save(modify);
-    } else
+    } else {
       itemRepository.deleteById(id);
+      return null;
+    }
+    return modify;
   }
 
   @PostMapping("/item/modify/description")
