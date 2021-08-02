@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,7 +45,7 @@ public class ItemController {
 
   //Post requests
 
-  @PostMapping("/item/delete/{id}")
+  @DeleteMapping("/item/delete/{id}")
   public void deleteItem(@PathVariable String id) {
     try {
       itemRepository.deleteById(id);
