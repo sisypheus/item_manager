@@ -1,0 +1,10 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import '~font-awesome/css/font-awesome.css';
+
+html, body, app-root {
+  height: 100% !important;
+  background: #fff;
+  margin: 0;
+}
