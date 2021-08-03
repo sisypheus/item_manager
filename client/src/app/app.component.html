@@ -1,58 +1,5 @@
 <div>
-  <nav class="bg-gray-800">
-    <div class="mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between md:justify-center h-20">
-        <div class="flex items-center">
-            <div class="flex-shrink-0 justify-start"> 
-              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-            </div> 
-          <div class="hidden md:flex">
-            <div class="ml-10 flex items-center space-x-4">
-              <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Overview</a>
-              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
-              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
-              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reports</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="-mr-2 flex md:hidden">
-          <!-- Mobile menu button -->
-          <button type="button" (click)="toggleMobileMenu()" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div *ngIf="mobileMenu" class="md:hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Overview</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Reports</a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-white shadow mb-8 flex ">
-    <div class="center mx-auto py-6 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">
-        Item Manager
-      </h1>
-    </div>
-  </header>
-
+  <app-navbar (requestForm)="showForm=$event"></app-navbar>
   <main>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
       <div *ngFor="let item of items" class="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border-2 border-black">
@@ -83,75 +30,7 @@
       </div>
     </div>
 
-    <div class="max-w-3xl center flex justify-center ml-auto mr-auto">
-      <form>
-
-        <div class="flex flex-col">
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Product name
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
-          </div>
-
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Stock
-            </label>
-            <div class="flex justify-items-center items-center">
-              <input class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline" type="text" autofocus>
-              <svg class="h-5 w-5 -ml-16 mr-2 cursor-pointer">       
-                <image (click)="null" class="h-5 w-5" xlink:href="assets/img/add.svg"/>    
-              </svg>
-              <svg (click)="null" class="h-5 w-5 cursor-pointer">       
-                <image class="h-5 w-5" xlink:href="assets/img/remove.svg"/>    
-              </svg>
-            </div>
-          </div>
-
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Price
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"type="text">
-          </div>
-
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Image URL
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
-          </div>
-
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Category
-            </label>
-            <input list="product-categories" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
-
-            <datalist id="product-categories">
-              <option value="Fruits">
-              <option value="Legumes">
-              <option value="Viande">
-              <option value="Poisson">
-              <option value="Hygiène">
-              <option value="Boissons">
-              <option value="Entretien">
-              <option value="High-Tech">
-              <option value="Surgelés">
-            </datalist>
-          </div>
-
-          <div class="mb-2">
-            <label class="block text-gray-800 text-md font-bold mb-2">
-              Description
-            </label>
-            <textarea class="h-36 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text"></textarea>
-          </div>
-        </div>
-
-      </form>
-    </div>
+    <app-form [parentData]="showForm"></app-form>
   </main>
 </div>
 

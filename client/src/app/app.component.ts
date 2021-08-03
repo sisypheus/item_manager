@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Item } from './Item';
 import { ItemService } from './item.service';
 
@@ -9,19 +9,13 @@ import { ItemService } from './item.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
   public items: Item[] = [];
-
-  mobileMenu: boolean = false;
+  @Output() public showForm: boolean = false;
 
   constructor(private ItemService: ItemService) {}
 
   ngOnInit() {
     this.getItems();
-  }
-
-  public toggleMobileMenu(): void {
-    this.mobileMenu = !this.mobileMenu;
   }
 
   public getItems(): void {
@@ -58,6 +52,6 @@ export class AppComponent implements OnInit {
   }
 
   public createItem(item: Item): void {
-    
+
   }
 }
