@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin
@@ -33,7 +37,7 @@ public class ItemController {
     return "Server is up and running";
   }
 
-  @GetMapping("/items")
+  @RequestMapping(method = RequestMethod.GET, path = "/items")
   public List<Item> getItems() {
     return itemRepository.findAll();
   }
@@ -45,7 +49,7 @@ public class ItemController {
 
   //Post requests
 
-  @DeleteMapping("/item/delete/{id}")
+  @RequestMapping(method = RequestMethod.DELETE, path="/item/delete/{id}")
   public void deleteItem(@PathVariable String id) {
     try {
       itemRepository.deleteById(id);
@@ -54,9 +58,9 @@ public class ItemController {
     }
   }
 
-  @PostMapping("/item/create")
+  @RequestMapping(method = RequestMethod.POST, path = "/item/create")
   public Item createItem(@RequestBody Map<String, Object> payload) {
-    String name = (String) payload.get("name");
+    String name = (String) payload.get("name"); 
     int count = payload.get("count") == null ? -1 : (int) payload.get("count");
     String description = (String) payload.get("description");
     String category = (String) payload.get("category");
@@ -72,7 +76,36 @@ public class ItemController {
 
   //modify methods
 
-  @PostMapping("/item/modify/count")
+  @RequestMapping(value="/item/modify", method=RequestMethod.POST)
+  public Item requestMethodName(@RequestBody Map<String, Object> payload) {
+    Object maybe_id = payload.get("id");
+    Object maybe_name = payload.get("name");
+    Object maybe_count = payload.get("count");
+    Object maybe_description = payload.get("description");
+    Object maybe_category = payload.get("category");
+    Object maybe_price = payload.get("price");
+    Object maybe_image = payload.get("image");
+  
+    if (maybe_id == null || maybe_count == null || maybe_description == null ||
+    maybe_category == null || maybe_price == null || maybe_image == null || maybe_name == null)
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to modify an item");
+    
+    String id = (String) maybe_id;
+    String name = (String) maybe_name;
+    int count = (int) maybe_count;
+    String description = (String) maybe_description;
+    String category = (String) maybe_category;
+    double price = (double) maybe_price;
+    String image = (String) maybe_image;
+
+    Item item = itemRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item id doesn't exist."));
+    item.setAll(name, count, description, category, price, image);
+    itemRepository.save(item);
+    return item;
+  }
+  
+
+  @RequestMapping(method = RequestMethod.POST, path = "/item/modify/count")
   public Item modifyCount(@RequestBody Map<String, Object> payload) {
     Object maybe_id = payload.get("id");
     Object maybe_count = payload.get("count");

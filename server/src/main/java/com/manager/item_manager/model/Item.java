@@ -69,6 +69,15 @@ public class Item {
     this.count = count;
   }
 
+  public void setAll(String name, int count, String description, String category, double price, String image) {
+    this.name = name;
+    this.count = count;
+    this.description = description;
+    this.category = category;
+    this.price = price;
+    this.image = image;
+  }
+
   @Override
   public String toString() {
     return "Item [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", image=" + image + "]";
