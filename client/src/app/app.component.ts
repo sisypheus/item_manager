@@ -34,4 +34,30 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
+  public addItem(item: Item): void {
+    this.ItemService.modifyCount(item, +item.count+1).subscribe(
+      (response: any) => {
+        this.getItems();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
+  public removeItem(item: Item): void {
+    this.ItemService.modifyCount(item, +item.count-1).subscribe(
+      (response: any) => {
+        this.getItems();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
+
+  public createItem(item: Item): void {
+    
+  }
 }

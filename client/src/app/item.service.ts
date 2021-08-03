@@ -20,8 +20,12 @@ export class ItemService {
     return this.http.post<Item>(`${this.API}/item/create`, item);
   }
 
-  public modifyCount(item: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.API}/item/modify`, {'count': item.count, 'id': item.id});
+  public modifyCount(item: Item, count: Number): Observable<Item> {
+    return this.http.post<Item>(`${this.API}/item/modify/count`, {'count': count, 'id': item.id});
+  }
+
+  public modifyItem(item: Item): Observable<Item> {
+    return this.http.post<Item>(`${this.API}/item/modify`, item);
   }
 
   public deleteItem(id: String): Observable<void> {
