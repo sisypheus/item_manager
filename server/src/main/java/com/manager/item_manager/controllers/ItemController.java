@@ -60,15 +60,21 @@ public class ItemController {
 
   @RequestMapping(method = RequestMethod.POST, path = "/item/create")
   public Item createItem(@RequestBody Map<String, Object> payload) {
-    String name = (String) payload.get("name"); 
-    int count = payload.get("count") == null ? -1 : (int) payload.get("count");
-    String description = (String) payload.get("description");
-    String category = (String) payload.get("category");
-    double price = payload.get("price") == null ? -1 : (double) payload.get("price");
-    String image = (String) payload.get("image");
-    //if one of the fields is null, throw an exception
-    if (name == null || count < 0 || description == null || category == null || price < 0 || image == null)
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to create a new item");
+    System.out.println("hitting me");
+    Object maybe_name = payload.get("name");
+    Object maybe_count = payload.get("count");
+    Object maybe_description = payload.get("description");
+    Object maybe_category = payload.get("category");
+    Object maybe_price = payload.get("price");
+    Object maybe_image = payload.get("image");
+
+    String name = (String) maybe_name;
+    int count = (int) maybe_count;
+    String description = (String) maybe_description;
+    String category = (String) maybe_category;
+    double price = (double) maybe_price;
+    String image = (String) maybe_image;
+
     Item item = new Item(name, count, description, category, price, image);
     itemRepository.save(item);
     return item;
