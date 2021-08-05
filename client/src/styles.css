@@ -1,7 +1,6 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import '~font-awesome/css/font-awesome.css';
 
 html, body, app-root, main {
   height: 100% !important;

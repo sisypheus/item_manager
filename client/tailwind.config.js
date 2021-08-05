@@ -12,9 +12,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
-  },
-  plugins: [
-    require('daisyui'),
-  ],
+    extend: {
+      alignItems: ['last'],
+    },
+    plugins: [],
+  }
 }
