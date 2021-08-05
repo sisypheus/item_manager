@@ -10,9 +10,7 @@ import { FormHandlerService } from './form-handler.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnChanges {
-  public items: Item[] = [];
-  @Input('closeForm') public closeForm: boolean = false; 
-
+  public items: Item[] = []; 
 
   constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
 

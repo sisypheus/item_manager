@@ -12,21 +12,24 @@
       </div>
 
       <div class="max-w-3xl center flex justify-center ml-auto mr-auto mt-6">
-        <form>
+
+        <!-- start of form -->
+
+        <form [formGroup]="myForm" (ngSubmit)="formSubmit()">
           <div class="flex flex-col">
             <div class="mb-2">
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Product name
               </label>
-              <input class="shadow apPpearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+              <input required formControlName="name" class="shadow apPpearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
             </div>
       
             <div class="mb-2">
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Stock
               </label>
-              <div class="flex justify-items-center items-center">
-                <input class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline" type="text" autofocus>
+              <div class="flex ustify-items-center items-center">
+                <input required type="number" formControlName="stock" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline">
                 <svg class="h-5 w-5 -ml-16 mr-2 cursor-pointer">       
                   <image (click)="null" class="h-5 w-5" xlink:href="assets/img/add.svg"/>    
                 </svg>
@@ -40,21 +43,21 @@
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Price
               </label>
-              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"type="text">
+              <input required type="number" formControlName="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline">
             </div>
       
             <div class="mb-2">
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Image URL
               </label>
-              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+              <input formControlName="imageUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
             </div>
       
             <div class="mb-2">
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Category
               </label>
-              <input list="product-categories" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+              <input required formControlName="category" list="product-categories" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
       
               <datalist id="product-categories">
                 <option value="Fruits">
@@ -73,13 +76,18 @@
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Description
               </label>
-              <textarea class="h-36 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text"></textarea>
+              <textarea required formControlName="description" class="h-36 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text"></textarea>
             </div>
 
             <div class="mb-6 self-center">
-              <button (click)="null" class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+              <button *ngIf="!myForm.valid; else elseBlock" type="submit" disabled class="bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-500 rounded cursor-not-allowed">
                 Create
               </button>
+              <ng-template #elseBlock>
+                <button type="submit" class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+                  Create
+                </button>
+              </ng-template>
             </div>
           </div>
         </form>
