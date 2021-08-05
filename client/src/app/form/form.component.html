@@ -1,67 +1,83 @@
-<div *ngIf="showForm" class="max-w-3xl center flex justify-center ml-auto mr-auto">
-  <form>
-    <div class="flex flex-col">
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Product name
-        </label>
-        <input class="shadow apPpearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+<div *ngIf="showForm" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center block p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    <span class="hidden inline-block align-middle h-screen" aria-hidden="true">&#8203;</span>
+     <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all my-8 align-middle max-w-lg w-full">
+
+      <!-- close button -->
+      <div class="flex items-end justify-end">
+        <svg class="h-8 w-8 cursor-pointer justify-end">
+          <image (click)="onClose()" class="h-8 w-8" xlink:href="assets/img/close.svg"/>
+        </svg>
       </div>
 
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Stock
-        </label>
-        <div class="flex justify-items-center items-center">
-          <input class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline" type="text" autofocus>
-          <svg class="h-5 w-5 -ml-16 mr-2 cursor-pointer">       
-            <image (click)="null" class="h-5 w-5" xlink:href="assets/img/add.svg"/>    
-          </svg>
-          <svg (click)="null" class="h-5 w-5 cursor-pointer">       
-            <image class="h-5 w-5" xlink:href="assets/img/remove.svg"/>    
-          </svg>
-        </div>
-      </div>
-
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Price
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"type="text">
-      </div>
-
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Image URL
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
-      </div>
-
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Category
-        </label>
-        <input list="product-categories" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
-
-        <datalist id="product-categories">
-          <option value="Fruits">
-          <option value="Legumes">
-          <option value="Viande">
-          <option value="Poisson">
-          <option value="Hygiène">
-          <option value="Boissons">
-          <option value="Entretien">
-          <option value="High-Tech">
-          <option value="Surgelés">
-        </datalist>
-      </div>
-
-      <div class="mb-2">
-        <label class="block text-gray-800 text-md font-bold mb-2">
-          Description
-        </label>
-        <textarea class="h-36 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text"></textarea>
+      <div class="max-w-3xl center flex justify-center ml-auto mr-auto mt-6">
+        <form>
+          <div class="flex flex-col">
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Product name
+              </label>
+              <input class="shadow apPpearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+            </div>
+      
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Stock
+              </label>
+              <div class="flex justify-items-center items-center">
+                <input class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline" type="text" autofocus>
+                <svg class="h-5 w-5 -ml-16 mr-2 cursor-pointer">       
+                  <image (click)="null" class="h-5 w-5" xlink:href="assets/img/add.svg"/>    
+                </svg>
+                <svg (click)="null" class="h-5 w-5 cursor-pointer">       
+                  <image class="h-5 w-5" xlink:href="assets/img/remove.svg"/>    
+                </svg>
+              </div>
+            </div>
+      
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Price
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"type="text">
+            </div>
+      
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Image URL
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+            </div>
+      
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Category
+              </label>
+              <input list="product-categories" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text">
+      
+              <datalist id="product-categories">
+                <option value="Fruits">
+                <option value="Legumes">
+                <option value="Viande">
+                <option value="Poisson">
+                <option value="Hygiène">
+                <option value="Boissons">
+                <option value="Entretien">
+                <option value="High-Tech">
+                <option value="Surgelés">
+              </datalist>
+            </div>
+      
+            <div class="mb-2">
+              <label class="block text-gray-800 text-md font-bold mb-2">
+                Description
+              </label>
+              <textarea class="h-36 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" type="text"></textarea>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
 </div>

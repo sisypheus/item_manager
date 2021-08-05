@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <app-form [parentData]="showForm"></app-form>
+    <app-form (onCloseForm)="closeForm=$event" [parentData]="showForm"></app-form>
   </main>
 </div>
 

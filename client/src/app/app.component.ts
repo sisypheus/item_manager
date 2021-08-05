@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Item } from './Item';
 import { ItemService } from './item.service';
 
@@ -11,6 +11,7 @@ import { ItemService } from './item.service';
 export class AppComponent implements OnInit {
   public items: Item[] = [];
   @Output() public showForm: boolean = false;
+  @Input('closeForm') public closeForm: boolean = true; 
 
   constructor(private ItemService: ItemService) {}
 

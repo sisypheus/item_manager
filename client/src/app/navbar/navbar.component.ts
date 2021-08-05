@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class NavbarComponent implements OnInit {
   mobileMenu: boolean = false;
 
-  @Output() public requestForm = new EventEmitter();
+  @Output() public requestForm:EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 
