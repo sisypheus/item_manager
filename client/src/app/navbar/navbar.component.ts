@@ -1,22 +1,18 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormHandlerService } from '../form-handler.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   mobileMenu: boolean = false;
 
-  @Output() public requestForm:EventEmitter<boolean> = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private FormService: FormHandlerService) { }
 
   public sendFormRequest(): void {
-    this.requestForm.emit(true);
+    this.FormService.open();
   }
 
   public toggleMobileMenu(): void {

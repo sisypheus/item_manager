@@ -1,22 +1,26 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Item } from './Item';
 import { ItemService } from './item.service';
+import { FormHandlerService } from './form-handler.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   public items: Item[] = [];
-  @Output() public showForm: boolean = false;
-  @Input('closeForm') public closeForm: boolean = true; 
+  @Input('closeForm') public closeForm: boolean = false; 
 
-  constructor(private ItemService: ItemService) {}
+
+  constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
 
   ngOnInit() {
     this.getItems();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 
   public getItems(): void {

@@ -1,23 +1,23 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormHandlerService } from '../form-handler.service';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit, OnChanges {
-  @Input('parentData') public showForm: boolean = false;
+export class FormComponent {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
-  @Output() onCloseForm: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  constructor(private FormService: FormHandlerService) { }
 
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  onClose(): void {
+    this.FormService.close();
   }
 
-  onClose(): void {
-    this.onCloseForm.emit(false);
+  getFormState(): boolean {
+    return this.FormService.show;
   }
 }
