@@ -1,13 +1,17 @@
 package com.manager.item_manager.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import com.manager.item_manager.model.Item;
 import com.manager.item_manager.repository.ItemRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +21,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @CrossOrigin
@@ -60,7 +62,6 @@ public class ItemController {
 
   @RequestMapping(method = RequestMethod.POST, path = "/item/create")
   public Item createItem(@RequestBody Map<String, Object> payload) {
-    System.out.println("hitting me");
     Object maybe_name = payload.get("name");
     Object maybe_count = payload.get("count");
     Object maybe_description = payload.get("description");
@@ -68,11 +69,15 @@ public class ItemController {
     Object maybe_price = payload.get("price");
     Object maybe_image = payload.get("image");
 
+    if (maybe_name == null || maybe_count == null || maybe_description == null ||
+    maybe_category == null || maybe_price == null || maybe_image == null)
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing required fields.");
+
     String name = (String) maybe_name;
     int count = (int) maybe_count;
     String description = (String) maybe_description;
     String category = (String) maybe_category;
-    double price = (double) maybe_price;
+    double price = maybe_price instanceof Integer ? (int) maybe_price : (double) maybe_price;
     String image = (String) maybe_image;
 
     Item item = new Item(name, count, description, category, price, image);
