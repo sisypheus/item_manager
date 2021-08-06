@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
   <main>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-      <div *ngFor="let item of items" class="max-w-xs mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border-2 border-black">
+      <div *ngFor="let item of items" class="max-w-xs mx-auto mb-6 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border-2 border-black">
         <div class="px-4 py-2">
             <div class="flex justify-between items-center">
               <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{{ item.name }}</h1>
@@ -10,7 +10,7 @@
             </div>
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
         </div>
-        <img class="object-cover w-full h-48 mt-2 border-black" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=320&q=80" alt="NIKE AIR">
+        <img class="object-cover w-full h-48 mt-2 border-black" [src]="item.image" alt="Photo related to the product">
         <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
           <h1 class="text-lg font-bold text-white">{{ item.price }}€</h1>
           <h2 *ngIf="item.count > 3; else elseBlock" class="text-sm font-black text-green-600">Stock : {{ item.count }}</h2>

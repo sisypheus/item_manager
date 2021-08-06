@@ -10,7 +10,7 @@ import { FormHandlerService } from './form-handler.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnChanges {
-  public items: Item[] = []; 
+  public items: Item[] = [];
 
   constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
 

@@ -1,7 +1,9 @@
+import { AngularFireStorage } from '@angular/fire/storage';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormHandlerService } from '../form-handler.service';
+import { finalize, tap } from 'rxjs/operators';
 import { ItemService } from '../item.service';
 import { Item } from '../Item';
 @Component({
@@ -10,19 +12,19 @@ import { Item } from '../Item';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent {
-  public myForm: any;
+  public myForm!: FormGroup;
+  public file!: File;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
+  constructor(private storage: AngularFireStorage, private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.myForm = this.FormBuilder.group({
       name: '',
       stock: '',
       price: '',
-      imageUrl: '',
       category: '',
-      description: ''
+      description: '',
     });
   }
 
@@ -33,23 +35,44 @@ export class FormComponent {
   formSubmit(): void {
     const item: Item = {
       id: '',
-      name: this.myForm.get('name').value,
-      price: this.myForm.get('price').value,
-      count: this.myForm.get('stock').value,
-      category: this.myForm.get('category').value,
-      description: this.myForm.get('description').value,
-      image: this.myForm.get('imageUrl').value
+      name: this.myForm.value.name,
+      price: this.myForm.value.price,
+      count: this.myForm.value.stock,
+      category: this.myForm.value.category,
+      description: this.myForm.value.description,
+      image: ''
     };
-    console.log(item);
-    this.ItemService.createItem(item).subscribe(
-      (Response: Item) => {
-        console.log('ici');
-        this.FormService.close();
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
+
+    const filePath = `${Date.now()}_${this.file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, this.file);
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url: string) => {
+          item.image = url;
+          this.ItemService.createItem(item).subscribe(
+            (Response: Item) => {
+              this.FormService.close();
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error);
+            }
+          );
+        });
+      }),
+    )
+    .subscribe();
+
+  }
+
+  setImage(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    if (files) {
+      const file = files.item(0);
+      if (file)
+        this.file = file;
+    }
   }
 
   getFormState(): boolean {

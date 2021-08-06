@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "image-manager-3fda3": {
+      "hosting": {
+        "client": [
+          "image-manager-3fda3"
+        ]
+      }
+    }
+  }
+}

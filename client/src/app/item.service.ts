@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Item } from './Item';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Item } from './Item';
 export class ItemService {
   private API = environment.API;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, storage: AngularFireStorage) { }
 
   public getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.API}/items`);
