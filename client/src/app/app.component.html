@@ -10,7 +10,8 @@
             </div>
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
         </div>
-        <img class="object-cover w-full h-48 mt-2 border-black" [src]="item.image" alt="Photo related to the product">
+        <img *ngIf="item.image; else elseblock" class="object-cover w-full h-48 mt-2 border-black" [src]="item.image" alt="Photo related to the product">
+        <ng-template #elseblock><img class="object-cover w-full h-48 mt-2 border-black" src="https://i.stack.imgur.com/y9DpT.jpg" alt="Placeholder photo for the product"></ng-template>
         <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
           <h1 class="text-lg font-bold text-white">{{ item.price }}€</h1>
           <h2 *ngIf="item.count > 3; else elseBlock" class="text-sm font-black text-green-600">Stock : {{ item.count }}</h2>

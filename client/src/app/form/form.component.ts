@@ -1,9 +1,10 @@
+import { ImageUploadService } from './../image-upload.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormHandlerService } from '../form-handler.service';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { ItemService } from '../item.service';
 import { Item } from '../Item';
 @Component({
@@ -16,7 +17,7 @@ export class FormComponent {
   public file!: File;
   @Output() triggerItemsFetchingEmitter = new EventEmitter<boolean>(false);
 
-  constructor(private storage: AngularFireStorage, private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
+  constructor(private ImageService: ImageUploadService, private storage: AngularFireStorage, private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.myForm = this.FormBuilder.group({
@@ -43,16 +44,24 @@ export class FormComponent {
       image: ''
     };
 
-    //make this a service
-    const filePath = `${Date.now()}_${this.file.name}`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, this.file);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe((url: string) => {
+    //case user hasn't uploaded image
+    if (!this.file) {
+      this.ItemService.createItem(item).subscribe(
+        (item: Item) => {
+          this.FormService.close();
+          this.triggerItemsFetchingEmitter.emit(true);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
+      //case user has uploaded image
+    } else {
+      this.ImageService.getDownloadUrl(this.file).then(
+        (url: String) => {
           item.image = url;
           this.ItemService.createItem(item).subscribe(
-            (Response: Item) => {
+            (item: Item) => {
               this.FormService.close();
               this.triggerItemsFetchingEmitter.emit(true);
             },
@@ -60,10 +69,9 @@ export class FormComponent {
               console.log(error);
             }
           );
-        });
-      }),
-    )
-    .subscribe();
+        }
+      );
+    }
   }
 
   setImage(event: Event): void {
