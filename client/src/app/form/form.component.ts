@@ -14,7 +14,7 @@ import { Item } from '../Item';
 export class FormComponent {
   public myForm!: FormGroup;
   public file!: File;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() triggerItemsFetchingEmitter = new EventEmitter<boolean>(false);
 
   constructor(private storage: AngularFireStorage, private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
 
@@ -43,6 +43,7 @@ export class FormComponent {
       image: ''
     };
 
+    //make this a service
     const filePath = `${Date.now()}_${this.file.name}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, this.file);
@@ -53,6 +54,7 @@ export class FormComponent {
           this.ItemService.createItem(item).subscribe(
             (Response: Item) => {
               this.FormService.close();
+              this.triggerItemsFetchingEmitter.emit(true);
             },
             (error: HttpErrorResponse) => {
               console.log(error);
@@ -62,7 +64,6 @@ export class FormComponent {
       }),
     )
     .subscribe();
-
   }
 
   setImage(event: Event): void {

@@ -9,7 +9,7 @@ import { FormHandlerService } from './form-handler.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   public items: Item[] = [];
 
   constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
@@ -18,7 +18,8 @@ export class AppComponent implements OnInit, OnChanges {
     this.getItems();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  triggerRefresh(): void {
+    this.getItems();
   }
 
   public getItems(): void {

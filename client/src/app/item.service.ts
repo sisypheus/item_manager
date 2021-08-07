@@ -11,7 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class ItemService {
   private API = environment.API;
 
-  constructor(private http: HttpClient, storage: AngularFireStorage) { }
+  constructor(private http: HttpClient) { }
 
   public getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.API}/items`);
