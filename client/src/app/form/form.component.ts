@@ -22,8 +22,8 @@ export class FormComponent {
   ngOnInit(): void {
     this.myForm = this.FormBuilder.group({
       name: '',
-      stock: '',
-      price: '',
+      stock: 0,
+      price: 0,
       category: '',
       description: '',
     });
@@ -72,6 +72,16 @@ export class FormComponent {
         }
       );
     }
+  }
+
+  addCount(): void {
+    this.myForm.patchValue({ stock: this.myForm.value.stock + 1 });
+  }
+
+  substractCount(): void {
+    if (this.myForm.value.stock <= 0)
+      return;
+    this.myForm.patchValue({ stock: this.myForm.value.stock - 1 });
   }
 
   setImage(event: Event): void {
