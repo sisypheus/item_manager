@@ -1,12 +1,27 @@
 <div>
   <app-navbar></app-navbar>
   <main>
+
+    <div class="flex items-center mx-auto justify-center space-x-4 mb-8">
+      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+        All
+      </button>
+      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+        Fruits
+      </button>
+      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+        Legumes
+      </button>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
       <div *ngFor="let item of items" class="max-w-xs mx-auto mb-6 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border-2 border-black">
         <div class="px-4 py-2">
             <div class="flex justify-between items-center">
               <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{{ item.name }}</h1>
-              <svg class="h-6 w-6 content-center cursor-pointer" viewBox="0 -192 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m320 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m128 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m512 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/></svg>
+              <div>
+                <svg id="moreActions" (click)="itemActions($event, item)" class="h-6 w-6 content-center cursor-pointer" viewBox="0 -192 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m128 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m512 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/></svg>
+              </div>
             </div>
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
         </div>
@@ -17,7 +32,7 @@
           <h2 *ngIf="item.count > 3; else elseBlock" class="text-sm font-black text-green-600">Stock : {{ item.count }}</h2>
           <ng-template #elseBlock><h2 class="text-sm font-black text-red-600">Stock : {{ item.count }}</h2></ng-template>
           
-          <!-- add/remove buttons -->
+          <!-- add/substract buttons -->
           <div class="flex items-center space-x-3">
             <svg class="cursor-pointer h-6 w-6 color-green-700">       
               <image (click)="addItem(item)" class="h-6 w-6" xlink:href="assets/img/add.svg"/>    
@@ -32,6 +47,22 @@
     </div>
 
     <app-form (triggerItemsFetchingEmitter)="triggerRefresh()"></app-form>
+
+    <div id="popover" class="z-10 absolute bg-gray-200 hidden rounded-lg space-y-3 p-2">
+      <div class="flex pt-2 cursor-pointer" (click)="null">
+        <svg class="h-6 w-6">
+          <image class="h-6 w-6" xlink:href="assets/img/edit.svg" />
+        </svg>
+        <p class="ml-2">Edit Item</p>
+      </div>
+
+      <div class="flex pb-2 cursor-pointer" (click)="null">
+        <svg class="h-6 w-6"> 
+          <image class="h-6 w-6" xlink:href="assets/img/remove.svg" />
+        </svg>
+        <p class="ml-2">Delete Item</p>
+      </div>
+    </div>
   </main>
 </div>
 
