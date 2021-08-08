@@ -48,8 +48,7 @@ export class FormComponent {
     if (!this.file) {
       this.ItemService.createItem(item).subscribe(
         (item: Item) => {
-          this.FormService.close();
-          this.triggerItemsFetchingEmitter.emit(true);
+          this.cleanForm();
         },
         (error: HttpErrorResponse) => {
           console.log(error);
@@ -62,8 +61,7 @@ export class FormComponent {
           item.image = url;
           this.ItemService.createItem(item).subscribe(
             (item: Item) => {
-              this.FormService.close();
-              this.triggerItemsFetchingEmitter.emit(true);
+              this.cleanForm();
             },
             (error: HttpErrorResponse) => {
               console.log(error);
@@ -72,6 +70,14 @@ export class FormComponent {
         }
       );
     }
+  }
+
+  cleanForm(): void {
+    this.myForm.reset({
+      name: '', price: 0, image: '', stock: 0, category: '', description: ''
+    });
+    this.FormService.close();
+    this.triggerItemsFetchingEmitter.emit(true);
   }
 
   addCount(): void {
