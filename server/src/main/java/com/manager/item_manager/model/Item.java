@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.web.multipart.MultipartFile;
 
-@Document
+@Document(collection = "item")
 public class Item {
   @Id
   private String id;
@@ -71,6 +71,12 @@ public class Item {
   public void setCount(int count) {
     this.count = count;
   }
+  public String getCategory() {
+    return category;
+  }
+  public void setCategory(String category) {
+    this.category = category;
+  }
 
   public void setAll(String name, int count, String description, String category, double price, String image) {
     this.name = name;
@@ -83,6 +89,6 @@ public class Item {
 
   @Override
   public String toString() {
-    return "Item [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", image=" + image + "]";
+    return "Item [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", image=" + image + category + count + "]";
   }
 }

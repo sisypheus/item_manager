@@ -1,6 +1,7 @@
 package com.manager.item_manager;
 
 import com.manager.item_manager.repository.ItemRepository;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.manager.item_manager.model.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,6 +8,7 @@ import com.manager.item_manager.model.Item;
 import com.manager.item_manager.repository.ItemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,13 @@ public class ItemController {
   @RequestMapping(method = RequestMethod.GET, path = "/items")
   public List<Item> getItems() {
     return itemRepository.findAll();
+  }
+
+  @RequestMapping(method = RequestMethod.GET, path="/items/category/{category}")
+  public List<Item>getItemsByCategory(@PathVariable String category) {
+    if (category.equals("All"))
+      return getItems();
+    return itemRepository.findByCategory(category);
   }
 
   @GetMapping("/item/{id}")
