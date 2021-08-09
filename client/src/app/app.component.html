@@ -2,14 +2,15 @@
   <app-navbar></app-navbar>
   <main>
 
+    <!-- make a button category component AND apply different style to the selected one -->
     <div class="flex items-center mx-auto justify-center space-x-4 mb-8">
-      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+      <button (click)="setCategory('All')" class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
         All
       </button>
-      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+      <button (click)="setCategory('Fruits')" class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
         Fruits
       </button>
-      <button class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
+      <button (click)="setCategory('Legumes')" class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
         Legumes
       </button>
     </div>

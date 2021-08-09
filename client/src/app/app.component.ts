@@ -15,6 +15,7 @@ import { FormHandlerService } from './form-handler.service';
 export class AppComponent implements OnInit {
   public items: Item[] = [];
   public actionsRequest: boolean = false;
+  public category: string = "All";
 
   constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
 
@@ -22,7 +23,12 @@ export class AppComponent implements OnInit {
     this.getItems();
   }
 
-  triggerRefresh(): void {
+  public triggerRefresh(): void {
+    this.getItems();
+  }
+
+  public setCategory(category: string): void {
+    this.category = category;
     this.getItems();
   }
 
@@ -51,7 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   public getItems(): void {
-    this.ItemService.getItems().subscribe(
+    this.ItemService.getItemsByCategory(this.category).subscribe(
       (response: Item[]) => {
         this.items = response;
       },
@@ -63,7 +69,7 @@ export class AppComponent implements OnInit {
 
   public addItem(item: Item): void {
     this.ItemService.modifyCount(item, +item.count+1).subscribe(
-      (response: any) => {
+      (_: any) => {
         this.getItems();
       },
       (error: HttpErrorResponse) => {

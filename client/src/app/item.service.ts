@@ -13,8 +13,13 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
+  //get items
   public getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.API}/items`);
+  }
+
+  public getItemsByCategory(category: String): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.API}/items/category/${category}`);
   }
 
   public createItem(item: Item): Observable<Item> {
