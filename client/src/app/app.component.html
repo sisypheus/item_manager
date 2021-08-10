@@ -20,11 +20,9 @@
         <div class="px-4 py-2">
             <div class="flex justify-between items-center">
               <h1 class="text-3xl font-bold text-gray-800 uppercase dark:text-white">{{ item.name }}</h1>
-              <div>
-                <svg id="moreActions" (click)="itemActions($event, item)" class="h-6 w-6 content-center cursor-pointer" viewBox="0 -192 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m128 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m512 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/></svg>
-              </div>
+              <svg id="moreActions" (click)="itemActions($event, item)" class="h-6 w-6 content-center cursor-pointer" viewBox="0 -192 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m320 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m128 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/><path d="m512 64c0 35.347656-28.652344 64-64 64s-64-28.652344-64-64 28.652344-64 64-64 64 28.652344 64 64zm0 0"/></svg>
             </div>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ item.description }}</p>
+            <h1>{{ item.category }}</h1>
         </div>
         <img *ngIf="item.image; else elseblock" class="object-cover w-full h-48 mt-2 border-black" [src]="item.image" alt="Photo related to the product">
         <ng-template #elseblock><img class="object-cover w-full h-48 mt-2 border-black" src="https://i.stack.imgur.com/y9DpT.jpg" alt="Placeholder photo for the product"></ng-template>
@@ -50,7 +48,7 @@
     <app-form (triggerItemsFetchingEmitter)="triggerRefresh()"></app-form>
 
     <div id="popover" class="z-10 absolute bg-gray-200 hidden rounded-lg space-y-3 p-2">
-      <div class="flex pt-2 cursor-pointer" (click)="null">
+      <div class="flex pt-2 cursor-pointer" (click)="requestEdit()">
         <svg class="h-6 w-6">
           <image class="h-6 w-6" xlink:href="assets/img/edit.svg" />
         </svg>

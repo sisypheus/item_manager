@@ -1,5 +1,6 @@
+import { FormComponent } from './form/form.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { Item } from './Item';
 import { ItemService } from './item.service';
 import { FormHandlerService } from './form-handler.service';
@@ -9,13 +10,18 @@ import { FormHandlerService } from './form-handler.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   host: {
-    '(document:click)': 'onPageClick($event)'
+    '(document:mouseup)': 'onPageClick($event)'
   }
 })
 export class AppComponent implements OnInit {
   public items: Item[] = [];
   public actionsRequest: boolean = false;
   public category: string = "All";
+
+  public selectedItem!: Item;
+  //child functions
+  @ViewChild(FormComponent)
+  private formComponent!: FormComponent;
 
   constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
 
@@ -25,6 +31,13 @@ export class AppComponent implements OnInit {
 
   public triggerRefresh(): void {
     this.getItems();
+  }
+
+  public requestEdit(): void {
+    console.log(this.selectedItem);
+    this.formComponent.setItemEdit(this.selectedItem);
+    this.formComponent.setForm();
+    this.FormService.show = true;
   }
 
   public setCategory(category: string): void {
@@ -46,6 +59,7 @@ export class AppComponent implements OnInit {
 
   public itemActions(element: Event, item: Item): void {
     this.actionsRequest = true;
+    this.selectedItem = item;
     const target = element.target as HTMLElement;
     let {x, y} = target.getBoundingClientRect();
     let popover = document.getElementById("popover");

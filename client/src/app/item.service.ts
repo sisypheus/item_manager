@@ -31,7 +31,7 @@ export class ItemService {
   }
 
   public modifyItem(item: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.API}/item/modify`, item);
+    return this.http.post<Item>(`${this.API}/item/modify/${item.id}`, item);
   }
 
   public deleteItem(id: String): Observable<void> {
