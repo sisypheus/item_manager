@@ -1,6 +1,6 @@
 import { FormComponent } from './form/form.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ElementRef, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 import { Item } from './Item';
 import { ItemService } from './item.service';
 import { FormHandlerService } from './form-handler.service';
@@ -45,6 +45,8 @@ export class AppComponent implements OnInit {
     this.getItems();
   }
 
+  //page event functions
+
   public onPageClick(event: Event): void {
     if (!this.actionsRequest)
       return;
@@ -57,6 +59,14 @@ export class AppComponent implements OnInit {
     }
   }
 
+  @HostListener('window:scroll',[]) onPageScroll(): void {
+    if (!this.actionsRequest)
+      return;
+    this.actionsRequest = false;
+    let popover = document.getElementById("popover");
+    popover?.classList?.add("hidden");
+  }
+
   public itemActions(element: Event, item: Item): void {
     this.actionsRequest = true;
     this.selectedItem = item;
@@ -66,7 +76,8 @@ export class AppComponent implements OnInit {
     if (!popover)
       return;
     popover.classList.remove("hidden");
-    popover.style.left = x + 'px';
+    let width = popover.offsetWidth;
+    popover.style.left = (x - width + 20) + 'px';
     popover.style.top = y + 'px';
   }
 
