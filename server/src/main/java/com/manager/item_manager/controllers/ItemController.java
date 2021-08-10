@@ -95,9 +95,8 @@ public class ItemController {
 
   //modify methods
 
-  @RequestMapping(value="/item/modify", method=RequestMethod.POST)
-  public Item requestMethodName(@RequestBody Map<String, Object> payload) {
-    Object maybe_id = payload.get("id");
+  @RequestMapping(value="/item/modify/{id}", method=RequestMethod.POST)
+  public Item requestMethodName(@PathVariable String id, @RequestBody Map<String, Object> payload) {
     Object maybe_name = payload.get("name");
     Object maybe_count = payload.get("count");
     Object maybe_description = payload.get("description");
@@ -105,11 +104,10 @@ public class ItemController {
     Object maybe_price = payload.get("price");
     Object maybe_image = payload.get("image");
   
-    if (maybe_id == null || maybe_count == null || maybe_description == null ||
-    maybe_category == null || maybe_price == null || maybe_image == null || maybe_name == null)
+    if (maybe_count == null || maybe_description == null || maybe_category == null ||
+        maybe_price == null || maybe_image == null || maybe_name == null)
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide all the parameters needed to modify an item");
     
-    String id = (String) maybe_id;
     String name = (String) maybe_name;
     int count = (int) maybe_count;
     String description = (String) maybe_description;
