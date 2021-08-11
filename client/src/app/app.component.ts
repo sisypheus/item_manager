@@ -1,3 +1,4 @@
+import { LoadingService } from './loading.service';
 import { FormComponent } from './form/form.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ElementRef, AfterViewInit, ViewChild, HostListener } from '@angular/core';
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
   @ViewChild(FormComponent)
   private formComponent!: FormComponent;
 
-  constructor(private ItemService: ItemService, private FormService: FormHandlerService) {}
+  constructor(private ItemService: ItemService, private FormService: FormHandlerService, public Loading: LoadingService) {}
 
   ngOnInit() {
     this.getItems();

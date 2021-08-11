@@ -1,7 +1,8 @@
+import { InterceptorService } from './interceptor.service';
 import { ItemService } from './item.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -11,6 +12,7 @@ import { FormComponent } from './form/form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from './loading/loading.component';
 
 const config = {
   apiKey: "AIzaSyAUhUZCFsHn7yr7mcPv6mHEFoqxF8wxD8g",
@@ -26,6 +28,7 @@ const config = {
     AppComponent,
     FormComponent,
     NavbarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,10 @@ const config = {
     AngularFirestoreModule,
     AngularFireStorageModule,
   ],
-  providers: [ItemService],
+  providers: [
+    ItemService,
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
