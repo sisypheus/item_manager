@@ -1,10 +1,11 @@
 <div>
+  <!-- navbar -->
   <app-navbar></app-navbar>
   <main>
     <!-- loading modal component while fetching items -->
     <app-loading></app-loading>
 
-    <!-- make a button category component AND apply different style to the selected one -->
+    <!-- TODO make a button category component AND apply different style to the selected one -->
     <div class="flex items-center mx-auto justify-center space-x-4 mb-8">
       <button (click)="setCategory('All')" class="rounded-lg bg-blue-500 hover:bg-blue-400 shadow-xl block text-white font-bold py-3 px-6">
         All
@@ -30,8 +31,8 @@
         <ng-template #elseblock><img class="object-cover w-full h-48 mt-2 border-black" src="https://i.stack.imgur.com/y9DpT.jpg" alt="Placeholder photo for the product"></ng-template>
         <div class="flex items-center justify-between px-4 py-2 bg-gray-900">
           <h1 class="text-lg font-bold text-white">{{ item.price }}€</h1>
-          <h2 *ngIf="item.count > 3; else elseBlock" class="text-sm font-black text-green-600">Stock : {{ item.count }}</h2>
-          <ng-template #elseBlock><h2 class="text-sm font-black text-red-600">Stock : {{ item.count }}</h2></ng-template>
+          <h2 *ngIf="item.count > 3; else elseBlock" class="font-black text-green-600">Stock : {{ item.count }}</h2>
+          <ng-template #elseBlock><h2 class="font-black text-red-600">Stock : {{ item.count }}</h2></ng-template>
           
           <!-- add/substract buttons -->
           <div class="flex items-center space-x-3">
@@ -47,8 +48,10 @@
       </div>
     </div>
 
+    <!-- form to add/edit item -->
     <app-form (triggerItemsFetchingEmitter)="triggerRefresh()"></app-form>
 
+    <!-- popover for actions on item -->
     <div id="popover" class="z-10 fixed bg-gray-200 hidden rounded-lg space-y-3 p-2">
       <div class="flex pt-2 cursor-pointer" (click)="requestEdit()">
         <svg class="h-6 w-6">

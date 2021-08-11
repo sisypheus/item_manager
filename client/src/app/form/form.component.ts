@@ -14,7 +14,7 @@ import { Item } from '../Item';
 })
 export class FormComponent {
   public myForm!: FormGroup;
-  public file!: File;
+  public file: File | null = null;
   public itemEdit: Item | null = null;
   @Output() triggerItemsFetchingEmitter = new EventEmitter<boolean>(false);
 
@@ -46,7 +46,7 @@ export class FormComponent {
     this.cleanForm(false);
   }
 
-  formSubmit(): void {
+  public formSubmit(): void {
     const item: Item = {
       id: this.myForm.value.id,
       name: this.myForm.value.name,
@@ -57,64 +57,41 @@ export class FormComponent {
       image: this.myForm.value.image
     };
 
-    //case user hasn't uploaded image
-    if (!this.file) {
-      if (!this.itemEdit) {
-        this.ItemService.createItem(item).subscribe(
-          (item: Item) => {
-            this.cleanForm(true);
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error);
-          }
-        );
-        //edit item
-      } else {
-        this.ItemService.modifyItem(item).subscribe(
-          (item: Item) => {
-            this.cleanForm(true);
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error);
-          }
-        );
-      }
-      //case user has uploaded image
-    } else {
-      if (!this.itemEdit) {
-        this.ImageService.getDownloadUrl(this.file).then(
-          (url: String) => {
-            item.image = url;
-            this.ItemService.createItem(item).subscribe(
-              (item: Item) => {
-                this.cleanForm(true);
-              },
-              (error: HttpErrorResponse) => {
-                console.log(error);
-              }
-            );
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error);
-          }
-        );
-      } else {
-        this.ImageService.getDownloadUrl(this.file).then(
-          (url: String) => {
-            item.image = url;
-            this.ItemService.modifyItem(item).subscribe(
-              (item: Item) => {
-                this.cleanForm(true);
-              },
-              (error: HttpErrorResponse) => {
-                console.log(error);
-              }
-            );
-          }
-        );
-      }
-    }
+    if (!this.itemEdit)
+      this.createItem(this.file, item);
+    else
+      this.editItem(this.file, item);
     this.itemEdit = null;
+  }
+
+  public async createItem(file: File | null, item: Item): Promise<void> {
+    if (file) {
+      item.image = await this.ImageService.getDownloadUrl(file);
+      this.ItemService.createItem(item).subscribe(
+        (item: Item) => this.cleanForm(true),
+        (error: HttpErrorResponse) => console.log(error)
+      );
+      return;
+    }
+    this.ItemService.createItem(item).subscribe(
+      (item: Item) => this.cleanForm(true),
+      (error: HttpErrorResponse) => console.log(error)
+    );
+  }
+
+  public async editItem(file: File | null, item: Item): Promise<void> {
+    if (file) {
+      item.image = await this.ImageService.getDownloadUrl(file);
+      this.ItemService.modifyItem(item).subscribe(
+        (item: Item) => this.cleanForm(true),
+        (error: HttpErrorResponse) => console.log(error)
+      );
+      return;
+    }
+    this.ItemService.modifyItem(item).subscribe(
+      (item: Item) => this.cleanForm(true),
+      (error: HttpErrorResponse) => console.log(error)
+    );
   }
 
   cleanForm(refresh: Boolean): void {
@@ -122,6 +99,7 @@ export class FormComponent {
       id:'', name: '', price: 0, image: '', stock: 0, category: '', description: ''
     });
     this.FormService.close();
+    this.file = null;
     if (refresh)
       this.triggerItemsFetchingEmitter.emit(true);
   }

@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
   }
 
   public requestEdit(): void {
-    console.log(this.selectedItem);
     this.formComponent.setItemEdit(this.selectedItem);
     this.formComponent.setForm();
     this.FormService.show = true;
