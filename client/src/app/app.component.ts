@@ -40,6 +40,10 @@ export class AppComponent implements OnInit {
     this.FormService.show = true;
   }
 
+  public requestDelete(): void {
+    this.deleteItem(this.selectedItem);
+  }
+
   public setCategory(category: string): void {
     this.category = category;
     this.getItems();
@@ -114,7 +118,14 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public createItem(item: Item): void {
-
+  public deleteItem(item: Item): void {
+    this.ItemService.deleteItem(item.id).subscribe(
+      (response: any) => {
+        this.getItems();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 }
