@@ -57,6 +57,12 @@ public class ItemController {
     return itemRepository.findById(id).isPresent() ? itemRepository.findById(id).get() : null;
   }
 
+  //find item by name
+  @RequestMapping(method = RequestMethod.GET, path="/item/find/{name}")
+  public List<Item> findItem(@PathVariable String name) {
+    return itemRepository.findItemsByRegexName(name);
+  }
+
   //Post requests
 
   @RequestMapping(method = RequestMethod.DELETE, path="/item/delete/{id}")
