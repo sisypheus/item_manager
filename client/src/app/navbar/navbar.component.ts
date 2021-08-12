@@ -19,7 +19,8 @@ export class NavbarComponent {
   itemSelected: Number = 0;
 
   hideCreateButton: Boolean = false;
-  createButtonVisible: String = 'bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded';
+  createButtonVisible: String = 'bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded ml-auto';
+  layoutSpacer: String = 'py-2 px-4 invisible mr-auto';
 
   constructor(private FormService: FormHandlerService, private router: Router) {
     router.events.subscribe((val) => {
