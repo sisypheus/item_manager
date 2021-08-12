@@ -13,8 +13,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
 
 const config = {
   apiKey: "AIzaSyAUhUZCFsHn7yr7mcPv6mHEFoqxF8wxD8g",
@@ -31,6 +33,7 @@ const config = {
     FormComponent,
     NavbarComponent,
     LoadingComponent,
+    routingComponents,
   ],
   imports: [
     BrowserModule,

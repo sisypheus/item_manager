@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { FormHandlerService } from '../form-handler.service';
 
 @Component({
@@ -17,7 +18,19 @@ export class NavbarComponent {
   options: Object = {0: "home", 1:"search"};
   itemSelected: Number = 0;
 
-  constructor(private FormService: FormHandlerService) { }
+  hideCreateButton: Boolean = false;
+  createButtonVisible: String = 'bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded';
+
+  constructor(private FormService: FormHandlerService, private router: Router) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url !== '/')
+          this.hideCreateButton = true;
+        else
+          this.hideCreateButton = false;
+      }
+    });
+  }
 
   public sendFormRequest(): void {
     this.FormService.open();
