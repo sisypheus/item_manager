@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './loading/loading.component';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 const config = {
   apiKey: "AIzaSyAUhUZCFsHn7yr7mcPv6mHEFoqxF8wxD8g",
@@ -40,6 +41,7 @@ const config = {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AppRoutingModule,
+    RouterModule,
   ],
   providers: [
     ItemService,
