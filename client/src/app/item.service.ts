@@ -17,6 +17,10 @@ export class ItemService {
     return this.http.get<Item[]>(`${this.API}/items`);
   }
 
+  public getItemsByName(name: String): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.API}/item/find/${name}`);
+  }
+
   public getItemsByCategory(category: String): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.API}/items/category/${category}`);
   }

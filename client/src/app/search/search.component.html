@@ -1,3 +1,5 @@
-<div class="flex items-center justify-center">
-  <p>Search</p>
+<div class="flex items-center justify-center mb-10">
+  <input class="overflow-hidden text-center outline-none text-5xl text-gray-600" [ngModel]="searchInput" (keyup)="checkKeyPressed($event)" placeholder="Search..."/>
 </div>
+
+<app-items [parentData]="searchedItems"></app-items>

@@ -17,6 +17,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
+import { ItemsComponent } from './items/items.component';
 
 const config = {
   apiKey: "AIzaSyAUhUZCFsHn7yr7mcPv6mHEFoqxF8wxD8g",
@@ -34,6 +35,7 @@ const config = {
     NavbarComponent,
     LoadingComponent,
     routingComponents,
+    ItemsComponent,
   ],
   imports: [
     BrowserModule,

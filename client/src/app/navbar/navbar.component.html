@@ -33,8 +33,8 @@
     <div *ngIf="mobileMenu" class="md:hidden" id="mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="#" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selectedMobile : unselectedMobile">Home</a>
-        <a href="#" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selectedMobile : unselectedMobile">Search</a>
+        <a href="/" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selectedMobile : unselectedMobile">Home</a>
+        <a href="/search" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selectedMobile : unselectedMobile">Search</a>
       </div>
     </div>
   </nav>
