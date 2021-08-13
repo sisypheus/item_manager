@@ -11,6 +11,6 @@ import org.springframework.stereotype.Service;
 @Repository
 public interface ItemRepository extends MongoRepository<Item, String> {
   List<Item> findByCategory(String category);
-  @Query("{ 'name' : {$regex: ?0} }")
+  @Query("{ 'name' : {$regex: ?0, $options: i} }")
   List<Item> findItemsByRegexName(String regexp);
 }
