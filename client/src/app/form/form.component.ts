@@ -18,7 +18,7 @@ export class FormComponent {
   public itemEdit: Item | null = null;
   @Output() triggerItemsFetchingEmitter = new EventEmitter<boolean>(false);
 
-  constructor(private ImageService: ImageUploadService, private storage: AngularFireStorage, private ItemService: ItemService, private FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
+  constructor(private ImageService: ImageUploadService, private ItemService: ItemService, public FormService: FormHandlerService, private FormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.myForm = this.FormBuilder.group({

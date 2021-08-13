@@ -29,7 +29,7 @@
                 Stock
               </label>
               <div class="flex ustify-items-center items-center">
-                <input required type="number" onkeydown="return event.keyCode !== 69" formControlName="stock" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline">
+                <input required type="number" onkeyup="return event.keyCode !== 69" formControlName="stock" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:shadow-outline">
                 <svg (click)="addCount()" class="h-5 w-5 -ml-16 mr-2 cursor-pointer">       
                   <image class="h-5 w-5" xlink:href="assets/img/add.svg"/>    
                 </svg>
@@ -43,7 +43,7 @@
               <label class="block text-gray-800 text-md font-bold mb-2">
                 Price
               </label>
-              <input required type="number" onkeydown="return event.keyCode !== 69" formControlName="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline">
+              <input required type="number" onkeyup="return event.keyCode !== 69" formControlName="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline">
             </div>
       
             <div class="mb-2">
@@ -81,11 +81,11 @@
 
             <div class="mb-6 self-center">
               <button *ngIf="!myForm.valid; else elseBlock" type="submit" disabled class="bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-500 rounded cursor-not-allowed">
-                Create
+                {{ this.FormService.formType }}
               </button>
               <ng-template #elseBlock>
                 <button type="submit" class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
-                  Create
+                  {{ this.FormService.formType }}
                 </button>
               </ng-template>
             </div>

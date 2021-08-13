@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class FormHandlerService {
   public show: boolean = false;
+  public formType: String = '';
   constructor() { }
 
   public open() : void {

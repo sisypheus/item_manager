@@ -23,7 +23,7 @@ export class SearchComponent {
   submitSearch(): void {
     console.log('Searching for: ' + this.searchInput);
     this.itemService.getItemsByName(this.searchInput).subscribe(
-      items => this.searchedItems = items
+      (items) => this.searchedItems = items
     );
   }
 }

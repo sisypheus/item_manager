@@ -48,6 +48,7 @@ export class ItemsComponent implements OnInit {
   public requestEdit(): void {
     this.formComponent.setItemEdit(this.selectedItem);
     this.formComponent.setForm();
+    this.FormService.formType = 'Edit';
     this.FormService.show = true;
   }
 
@@ -55,36 +56,33 @@ export class ItemsComponent implements OnInit {
     this.deleteItem(this.selectedItem);
   }
 
+  public getItems(): void {
+    this.ItemService.getItems().subscribe(
+      (fetched: Item[]) => {
+        this.items = fetched;
+      },
+      (error: HttpErrorResponse) => console.error(error)
+    )
+  }
+
   public addItem(item: Item): void {
     this.ItemService.modifyCount(item, +item.count+1).subscribe(
-      (_: any) => {
-        //this.getItems();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
+      (_: any) => this.getItems(),
+      (error: HttpErrorResponse) => console.error(error)
     );
   }
 
   public removeItem(item: Item): void {
     this.ItemService.modifyCount(item, +item.count-1).subscribe(
-      (_: any) => {
-        //this.getItems();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
+      (_: any) => this.getItems(),
+      (error: HttpErrorResponse) => console.error(error)
     );
   }
 
   public deleteItem(item: Item): void {
     this.ItemService.deleteItem(item.id).subscribe(
-      (response: any) => {
-        //this.getItems();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
+      (response: any) => this.getItems(),
+      (error: HttpErrorResponse) => console.error(error)
     );
   }
 }

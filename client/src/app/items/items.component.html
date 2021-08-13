@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+<div *ngIf="items.length > 0; else elseBlock" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
   <div *ngFor="let item of items" class="max-w-xs mx-auto mb-6 overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 border-2 border-black">
     <div class="px-4 py-2">
         <div class="flex justify-between items-center">
@@ -44,5 +44,11 @@
     <p class="ml-2">Delete Item</p>
   </div>
 </div>
+
+<ng-template #elseBlock>
+  <div class="flex items-center justify-center text-4xl">
+    No items
+  </div>
+</ng-template>
 
 <app-form></app-form>
