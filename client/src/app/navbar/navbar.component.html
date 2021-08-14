@@ -4,14 +4,14 @@
       <div class="flex items-center justify-between md:justify-center h-20">
         <div class="flex items-center">
             <div class="flex-shrink-0 justify-start">
-              <a href="/">
+              <a [routerLink]="['/']">
                 <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
               </a>
             </div> 
           <div class="hidden md:flex">
             <div class="ml-10 flex items-center space-x-4">
-              <a href="/" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selected : unselected">Home</a>
-              <a href="/search" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selected : unselected">Search</a>  
+              <a [routerLink]="['/']" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selected : unselected">Home</a>
+              <a [routerLink]="['/search']" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selected : unselected">Search</a>  
             </div>
           </div>
         </div>
@@ -35,8 +35,8 @@
     <div *ngIf="mobileMenu" class="md:hidden" id="mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="/" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selectedMobile : unselectedMobile">Home</a>
-        <a href="/search" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selectedMobile : unselectedMobile">Search</a>
+        <a [routerLink]="['/']" (click)="toggleSelected(0)" [class]="itemSelected == 0 ? selectedMobile : unselectedMobile">Home</a>
+        <a [routerLink]="['/search']" (click)="toggleSelected(1)" [class]="itemSelected == 1 ? selectedMobile : unselectedMobile">Search</a>
       </div>
     </div>
   </nav>

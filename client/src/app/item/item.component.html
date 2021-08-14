@@ -1,0 +1,30 @@
+<div class="flex mx-auto flex-col justify-center items-center max-w-xs">
+  <div *ngIf="spotlight">
+
+    <h1 class="text-4xl text-center mb-2">
+      {{ spotlight.name }}
+    </h1>
+
+    <img class="rounded-lg mb-3" [src]="spotlight.image" alt="Product image">
+
+    <p class="text-2xl text-center mb-2">
+      {{ spotlight.description }}
+    </p>
+
+    <p class="text-3xl text-center mb-2">
+      {{ spotlight.price }}€
+    </p>
+
+    <p class="text-3xl text-center mb-2">
+      {{ spotlight.count }}
+    </p>
+
+    <p class="text-3xl text-center mb-2">
+      {{ spotlight.category }}
+    </p>
+  </div>
+
+  <div *ngIf="!spotlight">
+    <p class="text-4xl">Item not specified</p>
+  </div>
+</div>
