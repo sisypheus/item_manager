@@ -1,27 +1,58 @@
-<div class="flex mx-auto flex-col justify-center items-center max-w-xs">
+<div class="flex mx-auto flex-col justify-center items-center max-w-md">
   <div *ngIf="spotlight">
 
-    <h1 class="text-4xl text-center mb-2">
-      {{ spotlight.name }}
-    </h1>
+    <div class="border-2 shadow mb-3">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Name
+      </h1>
+      <p class="text-4xl text-center text-gray-700">
+        {{ spotlight.name }}
+      </p>
+    </div>
+  
+    <div class="border-2 shadow mb-3 rounded-b-lg">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Image
+      </h1>
+      <img class="rounded-lg" [src]="spotlight.image" alt="Product image">
+    </div>
 
-    <img class="rounded-lg mb-3" [src]="spotlight.image" alt="Product image">
+    <div class="border-2 shadow mb-3">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Description
+      </h1>
+      <p class="text-2xl text-center mb-2 text-gray-700">
+        {{ spotlight.description }}
+      </p>
+    </div>
 
-    <p class="text-2xl text-center mb-2">
-      {{ spotlight.description }}
-    </p>
+    <div class="border-2 shadow mb-3">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Price
+      </h1>
+      <p class="text-3xl text-center mb-2 text-gray-700">
+        {{ spotlight.price }}€
+      </p>
+    </div>
 
-    <p class="text-3xl text-center mb-2">
-      {{ spotlight.price }}€
-    </p>
+    <div class="border-2 shadow mb-3">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Stock
+      </h1>
+      <p class="text-3xl text-center mb-2 text-gray-700">
+        {{ spotlight.count }}
+      </p>
+    </div>
 
-    <p class="text-3xl text-center mb-2">
-      {{ spotlight.count }}
-    </p>
+    <div class="border-2 shadow mb-3">
+      <h1 class="text-4xl text-center mb-1 font-medium">
+        Item Category
+      </h1>
+      <p class="text-3xl text-center mb-2 text-gray-700">
+        {{ spotlight.category }}
+      </p>
+    </div>
 
-    <p class="text-3xl text-center mb-2">
-      {{ spotlight.category }}
-    </p>
   </div>
 
   <div *ngIf="!spotlight">
