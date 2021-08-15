@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ItemManagerApplication implements CommandLineRunner {
+public class ItemManagerApplication {
 	private final ItemRepository itemRepository;
 
 	@Autowired
@@ -20,12 +20,4 @@ public class ItemManagerApplication implements CommandLineRunner {
 		SpringApplication.run(ItemManagerApplication.class, args);
 		System.out.println("Application started");
 	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		// if (itemRepository.findAll().isEmpty()) {
-		// 	itemRepository.save(new Item("Banane", 0.79, 6));
-		// }
-	}
-
 }
